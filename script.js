@@ -9,40 +9,40 @@ const fallbackImg = "https://cdn-icons-png.flaticon.com/512/847/847969.png";
 // --- DATA ---
 const cards = {
     funny: [
-        "Tantangan! Ajak orang asing berkenalan & foto bareng!",
-        "Tunjukkan gerakan paling aneh selama 15 detik!",
-        "Nyanyi 'Abang Tukang Bakso' ganti vokal jadi 'E'!",
-        "Sambung kata: Huruf belakang jadi huruf depan kata baru.",
-        "Cerita memalukan & minta teman kasih judul filmnya!",
-        "Ucapkan 'Ha’ah lah' (Atok Dalang) ekspresi: 😩😡🤠😭",
-        "Sampaikan perasaanmu dengan nada lagu anak-anak!",
-        "Kalau jadi sandal, mau jadi sandal apa & kenapa?",
-        "Debat palsu: 'Bubur diaduk vs tidak'!",
-        "Suara binatang untuk menggambarkan suasana hati."
+        "Tantangan untuk kamu! Ajaklah orang asing untuk berkenalan dengan kamu dan berfotolah dengan dia!",
+        "Tunjukkanlah gerakan paling aneh yang bisa kamu lakukan selama 15 detik!",
+        "Nyanyikan lagu “Abang Tukang Bakso” dengan mengganti huruf vokalnya dengan huruf “E”.",
+        "Sambung kata cth: 'G' Gajah untuk melanjutkan ambil kata belakangnya gaja'H' Harus, lanjutkan sampai tidak bisa disambung lagi",
+        "Ceritakanlah pengalaman memalukan yang pernah kalian alami dan suruhlah anggota kelompok untuk memberikan judul film untuk ceritamu!",
+        "Ucapkanlah kalimat berikut ini “Ha’ah lah (Atok Dalang dari Upin Ipin) dengan ekspresi berikut : 😩😡🤠😭",
+        "Sampaikanlah prasaan mu saat ini dengan nada lagu anak-anak!",
+        "Kalau kamu jadi sandal kamu mau jadi sandal tipe apa dan kenapa alasannya?",
+        "Buatlah perdebatan palsu “Tim Bubur diaduk atau tidak.” atau “Mana yang keluar lebih dulu? Telur atau Ayam.”",
+        "Sampaikan suasana hatimu saat ini dengan menggunakan suara binatang."
     ],
     sharing: [
-        "Review buku kesukaan & ceritakan alurnya.",
-        "Genre musik favorit & alasannya.",
-        "Satu kekuatan super yang diinginkan & kegunaannya?",
-        "Tokoh yang dikagumi & alasannya.",
-        "Apa yang dilakukan jika tersesat di hutan?",
-        "Satu emosi yang ingin dihapus dari dunia?",
-        "Kebiasaan aneh yang sering tidak disadari.",
-        "Ingin reinkarnasi jadi apa?",
-        "Time travel: Masa lalu atau masa depan?",
-        "Skill instan yang ingin dipelajari."
+        "Berbagi penglaman tentang buku kesukaan dan ceritakanlah alur cerita dari buku tersebut.",
+        "Sebutkanlah genre musik favoritmu dan ceritakan kenapa kamu menyukai genre musik tersebut.",
+        "Jika kamu bisa memilih satu kekuatan super yang bisa kamu miliki seumur hidup, kekuatan apa yang akan kamu pilih, dan bagaimana kamu akan menggunakannya untuk dirimu sendiri dan orang lain?",
+        "Siapa tokoh (nyata atau fiksi) yang kamu kagumi, dan apa yang membuatmu kagum padanya?",
+        "Jika kamu tersesat di sebuah hutan, apa yang akan kamu lakukan?",
+        "Kalau kamu bisa menghapus satu emosi dari dunia (misalnya: marah, takut, iri), rasa apa yang akan kamu pilih dan mengapa?",
+        "Sebutkanlah salah satu kebiasaan aneh yang kamu lakukan tapi kamu tidak menyadari hal tersebut.",
+        "Jika bisa berainkarnasi, kamu ingin berainkarnasi menjadi apa?",
+        "Jika kamu bisa melakukan perjalanan waktu, kamu ingin pergi ke masa depan atau masa lalu? Berikan juga alasannya!",
+        "Bayangkan kamu bisa mempelajari hal baru secara instan, apa yang akan kamu pilih dan kenapa hal itu penting untuk kamu?"
     ],
     deeptalk: [
-        "Pernah merasa dekat tapi tetap kesepian?",
-        "Rasanya jadi orang yang mengerti tapi tak dimengerti?",
-        "Seberapa sering takut jujur karena takut ditinggal?",
-        "Momen ingin didengar tanpa butuh solusi.",
-        "Cara menutupi kecewa biar gak ngerepotin orang.",
-        "Isi kepala saat ingin berhenti overthinking.",
-        "Merasa sepi di tengah keramaian teman?",
-        "Tentang teman dekat yang kini jadi asing.",
-        "Perasaan saat selalu ada, tapi mereka tiada saat butuh.",
-        "Pesan untuk versi kecil dirimu (5 menit)."
+        "Ceritakan apakah kamu pernah merasa dekat dengan orang lain, namun tetap aja merasa sendirian",
+        "Ceritakan bagimana rasanya jadi orang yang selalu mengerti orang lain, tapi jarang dimengerti",
+        "Ceritakan seberapa sering kamu takut jujur karena khawatir orang akan menjauh",
+        "Ceritakan momen ketika kamu hanya ingin didengarkan tanpa harus mendapatkan solusi",
+        "Ceritakan bagimana kamu menutupi rasa kecewa supaya tidak merepotkan orang lain",
+        "Ceritakan apa yang ada di kepalamu saat kamu ingin berhenti overthinking",
+        "Ceritakan apakah kamu pernah merasa kesepian padahal lagi dikelilingi teman",
+        "Ceritakan tentang teman yang dulu paling dekat, tapi sekarang jadi asing banget",
+        "Ceritakan perasaanmu ketika kamu selalu ada, namun waktu kamu butuh, mereka tidak ada",
+        "Jika kamu punya waktu 5 menit untuk berbicara dengan versi dirimu saat kecil, apa yang akan kamu katakan padanya?"
     ],
     motivation: [
         "“Kamu jangan merasa sendirian. Banyak orang yang juga sedang belajar cara memahami dan dipahami”",
@@ -69,7 +69,7 @@ const tileTypes = {
 };
 
 const coordinates = {
-    0: { top: '11.6%', left: '2%' }, 
+    0: { top: '11.6%', left: '4%' }, 
     1: { top: '11.6%', left: '7.2%' }, 2: { top: '11.6%', left: '15.2%' }, 3: { top: '11.7%', left: '24.3%' }, 4: { top: '11.9%', left: '31.7%' },
     5: { top: '18.3%', left: '31.7%' }, 6: { top: '25.2%', left: '32.4%' }, 7: { top: '25.1%', left: '40.4%' }, 8: { top: '25.4%', left: '47.6%' },
     9: { top: '18.4%', left: '48.0%' }, 10: { top: '11.1%', left: '48.7%' }, 11: { top: '11.7%', left: '56.3%' }, 12: { top: '11.6%', left: '64.6%' },
@@ -93,6 +93,15 @@ const coordinates = {
 const state = { players: [], turn: 0, processing: false, forcedDice: null, wheelRot: 0 };
 
 const game = {
+    startMusic: () => {
+        const bgm = document.getElementById('bgm');
+        if(bgm) bgm.play().catch(e => console.log("Audio autolocked"));
+    },
+    stopMusic: () => {
+        const bgm = document.getElementById('bgm');
+        if(bgm) { bgm.pause(); bgm.currentTime = 0; }
+    },
+
     init: () => {
         state.players = [];
         state.forcedDice = null;
@@ -136,7 +145,7 @@ const game = {
         state.players.forEach(p => {
             const div = document.createElement('div');
             div.id = `pawn-${p.id}`;
-            div.className = 'pawn';
+            div.className = 'pawn'; // Class ini punya transition CSS
             div.style.backgroundImage = `url('${p.avatar}')`;
             div.onerror = function() { this.style.background = 'white'; };
             layer.appendChild(div);
@@ -153,8 +162,6 @@ const game = {
         let result = state.forcedDice ? state.forcedDice : Math.floor(Math.random()*12)+1;
         state.forcedDice = null;
 
-        // Calc Rotation (Target is top 0deg, but pointer is top)
-        // Wheel numbers start 1 at 0-30deg. Center of 1 is 15deg.
         const segmentCenter = (result - 1) * 30 + 15;
         const targetRot = 360 - segmentCenter; 
         const extra = 360 * 5;
@@ -191,9 +198,20 @@ const game = {
         let stepsLeft = steps;
         const int = setInterval(() => {
             if(stepsLeft > 0) {
+                // Update Posisi Data
                 p.pos = game.calculateNextStep(p.pos);
+                
+                // Trigger Visual Pindah
                 game.moveVisual(p, p.pos);
+                
+                // Trigger Efek Loncat (Hop)
+                const pawnEl = document.getElementById(`pawn-${p.id}`);
+                pawnEl.classList.remove('hopping'); // Reset dulu
+                void pawnEl.offsetWidth; // Force reflow (trik css reset)
+                pawnEl.classList.add('hopping');
+
                 game.updateUI();
+                
                 if(p.pos === 60) {
                     clearInterval(int);
                     game.handleWin(p);
@@ -204,7 +222,7 @@ const game = {
                 clearInterval(int);
                 setTimeout(() => game.checkTile(p), 400);
             }
-        }, 400);
+        }, 400); // 400ms sesuai durasi animasi hop di CSS
     },
 
     calculateNextStep: (curr) => {
