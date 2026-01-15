@@ -89,19 +89,13 @@ const coordinates = {
     57: { top: '78.5%', left: '86.7%' }, 58: { top: '72.3%', left: '87.2%' }, 59: { top: '65.4%', left: '86.6%' }, 60: { top: '65.4%', left: '95.2%' }
 };
 
-// --- LOGIC ---
 const state = { players: [], turn: 0, processing: false, forcedDice: null, wheelRot: 0 };
 
 const game = {
-    startMusic: () => {
-        const bgm = document.getElementById('bgm');
-        if(bgm) bgm.play().catch(e => console.log("Audio autolocked"));
-    },
     stopMusic: () => {
         const bgm = document.getElementById('bgm');
         if(bgm) { bgm.pause(); bgm.currentTime = 0; }
     },
-
     init: () => {
         state.players = [];
         state.forcedDice = null;
@@ -116,14 +110,12 @@ const game = {
         ui.switchScreen('screen-game');
         game.updateUI();
     },
-
     initWheel: () => {
         const wheel = document.getElementById('spinner-wheel');
         const colors = ['#ff7675', '#74b9ff', '#55efc4', '#ffeaa7', '#a29bfe', '#fab1a0'];
         let grad = 'conic-gradient(';
         for(let i=0; i<12; i++) grad += `${colors[i%6]} ${i*30}deg ${(i+1)*30}deg,`;
         wheel.style.background = grad.slice(0, -1) + ')';
-        
         wheel.innerHTML = '';
         for(let i=1; i<=12; i++) {
             const span = document.createElement('span');
@@ -132,52 +124,41 @@ const game = {
             span.style.color = 'white'; span.style.fontWeight = 'bold'; span.style.fontFamily='Fredoka One';
             const angle = (i-1)*30 + 15;
             const rad = (angle - 90) * (Math.PI/180);
-            const r = 50; 
-            span.style.left = `${70 + r * Math.cos(rad) - 5}px`;
-            span.style.top = `${70 + r * Math.sin(rad) - 10}px`;
+            const r = 40; 
+            span.style.left = `${60 + r * Math.cos(rad) - 5}px`;
+            span.style.top = `${60 + r * Math.sin(rad) - 10}px`;
             wheel.appendChild(span);
         }
     },
-
     renderBoard: () => {
         const layer = document.getElementById('pawn-layer');
         layer.innerHTML = '';
         state.players.forEach(p => {
             const div = document.createElement('div');
             div.id = `pawn-${p.id}`;
-            div.className = 'pawn'; // Class ini punya transition CSS
+            div.className = 'pawn';
             div.style.backgroundImage = `url('${p.avatar}')`;
             div.onerror = function() { this.style.background = 'white'; };
             layer.appendChild(div);
             game.moveVisual(p, 0);
         });
     },
-
     spin: () => {
         if(state.processing) return;
         state.processing = true;
         const btn = document.getElementById('btn-spin');
         btn.disabled = true;
-
         let result = state.forcedDice ? state.forcedDice : Math.floor(Math.random()*12)+1;
         state.forcedDice = null;
-
         const segmentCenter = (result - 1) * 30 + 15;
         const targetRot = 360 - segmentCenter; 
         const extra = 360 * 5;
         const currentMod = state.wheelRot % 360;
         const diff = 360 - currentMod;
-        
         state.wheelRot += diff + extra + targetRot;
-        
         document.getElementById('spinner-wheel').style.transform = `rotate(${state.wheelRot}deg)`;
-
-        setTimeout(() => {
-            game.processMove(result);
-            btn.disabled = false;
-        }, 4000);
+        setTimeout(() => { game.processMove(result); btn.disabled = false; }, 4000);
     },
-
     processMove: (dice) => {
         const p = state.players[state.turn];
         if(p.isJailed) {
@@ -193,38 +174,22 @@ const game = {
         }
         game.startWalking(p, dice);
     },
-
     startWalking: (p, steps) => {
         let stepsLeft = steps;
         const int = setInterval(() => {
             if(stepsLeft > 0) {
-                // Update Posisi Data
                 p.pos = game.calculateNextStep(p.pos);
-                
-                // Trigger Visual Pindah
                 game.moveVisual(p, p.pos);
-                
-                // Trigger Efek Loncat (Hop)
-                const pawnEl = document.getElementById(`pawn-${p.id}`);
-                pawnEl.classList.remove('hopping'); // Reset dulu
-                void pawnEl.offsetWidth; // Force reflow (trik css reset)
-                pawnEl.classList.add('hopping');
-
+                const el = document.getElementById(`pawn-${p.id}`);
+                el.classList.remove('hopping'); void el.offsetWidth; el.classList.add('hopping');
                 game.updateUI();
-                
-                if(p.pos === 60) {
-                    clearInterval(int);
-                    game.handleWin(p);
-                    return;
-                }
+                if(p.pos === 60) { clearInterval(int); game.handleWin(p); return; }
                 stepsLeft--;
             } else {
-                clearInterval(int);
-                setTimeout(() => game.checkTile(p), 400);
+                clearInterval(int); setTimeout(() => game.checkTile(p), 400);
             }
-        }, 400); // 400ms sesuai durasi animasi hop di CSS
+        }, 400);
     },
-
     calculateNextStep: (curr) => {
         if(curr === 60) return 60;
         if(typeof curr === 'number') return curr + 1;
@@ -233,7 +198,6 @@ const game = {
             return n < 32 ? `${n+1}_alt` : 33;
         }
     },
-
     moveVisual: (p, pos) => {
         const el = document.getElementById(`pawn-${p.id}`);
         const c = coordinates[pos] || {top:'0', left:'0'};
@@ -241,16 +205,10 @@ const game = {
         el.style.top = c.top; el.style.left = c.left;
         el.style.transform = `translate(calc(-50% + ${off}px), calc(-50% + ${off}px))`;
     },
-
     checkTile: (p) => {
         const posStr = p.pos;
         const posNum = parseInt(p.pos);
-
-        if(posNum === 28) {
-            document.getElementById('freewill-modal').classList.remove('hidden');
-            return;
-        }
-
+        if(posNum === 28) { document.getElementById('freewill-modal').classList.remove('hidden'); return; }
         if(tileTypes.jail.includes(posStr)) {
             p.isJailed = true; ui.showModal('JAIL', 'Masuk Penjara!', '#2d3436');
         } else if(tileTypes.bonus.includes(posStr)) {
@@ -259,12 +217,9 @@ const game = {
         else if(tileTypes.sharing.includes(posStr)) game.drawCard('sharing');
         else if(tileTypes.deeptalk.includes(posStr)) game.drawCard('deeptalk');
         else if(tileTypes.motivation.includes(posStr)) game.drawCard('motivation');
-        else {
-            game.nextTurn(); return;
-        }
+        else { game.nextTurn(); return; }
         game.nextTurn();
     },
-
     drawCard: (t) => {
         const deck = cards[t];
         const txt = deck[Math.floor(Math.random()*deck.length)];
@@ -276,7 +231,6 @@ const game = {
         };
         ui.showModal(cfg[t].t, txt, cfg[t].c);
     },
-
     choosePath: (c) => {
         document.getElementById('freewill-modal').classList.add('hidden');
         const p = state.players[state.turn];
@@ -284,33 +238,23 @@ const game = {
         else { p.pos = 29; game.moveVisual(p, 29); }
         game.nextTurn();
     },
-
     handleWin: (p) => {
         document.getElementById('winner-name').innerText = p.name;
         document.getElementById('winner-avatar').src = p.avatar;
         ui.switchScreen('screen-winner');
     },
-
     nextTurn: () => {
         state.turn = (state.turn + 1) % state.players.length;
         state.processing = false;
         game.updateUI();
     },
-
     updateUI: () => {
         const list = document.getElementById('player-list');
         list.innerHTML = '';
         state.players.forEach((p, i) => {
             const isActive = i === state.turn ? 'active' : '';
             const pos = parseInt(p.pos);
-            list.innerHTML += `
-                <div class="player-card ${isActive}">
-                    <img src="${p.avatar}" class="p-avatar-small" onerror="this.src='${fallbackImg}'">
-                    <div class="p-info">
-                        <span>${p.name}</span>
-                        <span>Pos: ${pos}</span>
-                    </div>
-                </div>`;
+            list.innerHTML += `<div class="player-card ${isActive}"><img src="${p.avatar}" class="p-avatar-small" onerror="this.src='${fallbackImg}'"><div class="p-info"><span>${p.name}</span><span>Pos: ${pos}</span></div></div>`;
         });
         document.getElementById('active-player-name').innerText = state.players[state.turn].name;
     }
@@ -328,11 +272,7 @@ const setup = {
                 const cls = idx===0 ? 'selected' : '';
                 opts += `<label><input type="radio" name="char_p${i}" value="${img}" class="hidden" ${chk} onchange="setup.sel(this)"><img src="${img}" class="char-opt ${cls}" onerror="this.style.display='none'"></label>`;
             });
-            c.innerHTML += `
-                <div class="input-row">
-                    <input id="p${i}-name" placeholder="Nama Pemain ${i}">
-                    <div class="char-options">${opts}</div>
-                </div>`;
+            c.innerHTML += `<div class="input-row"><input id="p${i}-name" placeholder="Nama Pemain ${i}"><div class="char-options">${opts}</div></div>`;
         }
     },
     sel: (el) => {
